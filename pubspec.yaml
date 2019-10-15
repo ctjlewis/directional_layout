@@ -4,7 +4,7 @@ version: 0.0.1
 authors:
   - Christian Lewis <ctjl96@gmail.com>
   - The Hercules Team <hello@hercules.dev>
-homepage: 
+homepage: https://github.com/ctjl96/directional_layout
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
