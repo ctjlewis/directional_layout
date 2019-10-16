@@ -10,6 +10,7 @@ class DirectionalLayout extends StatelessWidget {
     this.direction,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     this.flex = false,
     this.padding,
   });
@@ -18,6 +19,7 @@ class DirectionalLayout extends StatelessWidget {
   final Axis direction;
   final MainAxisAlignment mainAxisAlignment;
   final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
   final bool flex;
   final dynamic padding;
 
@@ -25,15 +27,25 @@ class DirectionalLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final Flex _child = Flex(
       direction: direction,
-      children: !flex ? children : children.map((x) => new Expanded(child: x, flex: x is SetFlex ? x.flex : 1)).toList(),
+      children: !flex
+          ? children
+          : children
+              .map((x) =>
+                  new Expanded(child: x, flex: x is SetFlex ? x.flex : 1))
+              .toList(),
       mainAxisAlignment: mainAxisAlignment,
       mainAxisSize: mainAxisSize,
+      crossAxisAlignment: crossAxisAlignment,
     );
-    if(padding == null || padding == 0) return _child;
-    else return new Padding(
-      padding: padding is! EdgeInsetsGeometry ? EdgeInsets.all(padding.toDouble()) : padding,
-      child: _child,
-    );
+    if (padding == null || padding == 0)
+      return _child;
+    else
+      return new Padding(
+        padding: padding is! EdgeInsetsGeometry
+            ? EdgeInsets.all(padding.toDouble())
+            : padding,
+        child: _child,
+      );
   }
 }
 
@@ -42,18 +54,22 @@ class VerticalLayout extends DirectionalLayout {
     this.children,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     this.flex = false,
     this.padding,
-  }) : super(children: children,
-    direction: Axis.vertical,
-    mainAxisAlignment: mainAxisAlignment,
-    mainAxisSize: mainAxisSize,
-    padding: padding,
-  );
+  }) : super(
+          children: children,
+          direction: Axis.vertical,
+          mainAxisAlignment: mainAxisAlignment,
+          mainAxisSize: mainAxisSize,
+          crossAxisAlignment: crossAxisAlignment,
+          padding: padding,
+        );
 
   final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
   final bool flex;
   final dynamic padding;
 }
@@ -63,19 +79,23 @@ class HorizontalLayout extends DirectionalLayout {
     this.children,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     this.flex = false,
     this.padding,
-  }) : super(children: children,
-    direction: Axis.horizontal,
-    mainAxisAlignment: mainAxisAlignment,
-    mainAxisSize: mainAxisSize,
-    flex: flex,
-    padding: padding,
-  );
+  }) : super(
+          children: children,
+          direction: Axis.horizontal,
+          mainAxisAlignment: mainAxisAlignment,
+          mainAxisSize: mainAxisSize,
+          crossAxisAlignment: crossAxisAlignment,
+          flex: flex,
+          padding: padding,
+        );
 
   final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
   final bool flex;
   final dynamic padding;
 }
@@ -88,11 +108,15 @@ class SetFlex extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(padding == null || padding == 0) return child;
-    else return new Padding(
-      padding: padding is! EdgeInsetsGeometry ? EdgeInsets.all(padding.toDouble()) : padding,
-      child: child,
-    );
+    if (padding == null || padding == 0)
+      return child;
+    else
+      return new Padding(
+        padding: padding is! EdgeInsetsGeometry
+            ? EdgeInsets.all(padding.toDouble())
+            : padding,
+        child: child,
+      );
   }
 }
 
@@ -102,11 +126,12 @@ class Shrink extends DirectionalLayout {
     this.direction,
     this.padding,
   }) : super(
-    children: <Widget>[child],
-    direction: direction,
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    padding: padding,
-  );
+          children: <Widget>[child],
+          direction: direction,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          padding: padding,
+        );
 
   final Widget child;
   final Axis direction;
@@ -114,13 +139,15 @@ class Shrink extends DirectionalLayout {
 }
 
 class VerticalShrink extends Shrink {
-  VerticalShrink({this.child, this.padding}) : super(child: child, padding: padding, direction: Axis.vertical);
+  VerticalShrink({this.child, this.padding})
+      : super(child: child, padding: padding, direction: Axis.vertical);
   final Widget child;
   final dynamic padding;
 }
 
 class HorizontalShrink extends Shrink {
-  HorizontalShrink({this.child, this.padding}) : super(child: child, padding: padding, direction: Axis.horizontal);
+  HorizontalShrink({this.child, this.padding})
+      : super(child: child, padding: padding, direction: Axis.horizontal);
   final Widget child;
   final dynamic padding;
 }

@@ -1,6 +1,6 @@
 name: directional_layout
-description: A lightweight version of the more robust Layout library. 
-version: 0.0.1
+description: A lightweight version of the more robust Layout library. Create symmetric, fully responsive layouts with ease.
+version: 1.0.1
 authors:
   - Christian Lewis <ctjl96@gmail.com>
   - The Hercules Team <hello@hercules.dev>
